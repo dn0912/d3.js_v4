@@ -22,8 +22,9 @@
     d3.tsv('data.tsv', (err, data) => {
       // clean the data
       data.forEach(d => {
-        d.date = new Date(d.date); // x
-        ++d[city]; // y
+        d.date = d3.timeParse("%Y%m%d")(d.date); // x
+        d.date = new Date(d.date);
+        ++d[city]; // y // ++ is formating string to float
         console.log(d.date);
       });
 
