@@ -5,3 +5,7 @@ Online Editor: blockbuilder.org
 
 Worth read:
 https://github.com/d3/d3-selection
+
+
+To run the server on localhost:8888
+python -m SimpleHTTPServer 8888 &

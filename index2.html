@@ -17,6 +17,7 @@
     var city = 'San Francisco';
     var width = 900;
     var height = 300;
+    var margin = {top: 20, bottom:20, left: 20, right: 20 };
 
     // dataset of city temperatures across time
     d3.tsv('data.tsv', (err, data) => {
@@ -25,34 +26,61 @@
         d.date = d3.timeParse("%Y%m%d")(d.date); // x
         d.date = new Date(d.date);
         ++d[city]; // y // ++ is formating string to float
-        console.log(d.date);
       });
 
-      // get min/max
-      var min = d3.min(data, d => d[city]);
-      var max = d3.max(data, d => d[city]);
-      console.log(min, max);
-      // or use extent, which gives back [min, max]
-      var extent = d3.extent(data, d => d[city]);
-      console.log(extent);
-
-      // try different scales, change the ranges, see what happens
+      // scales
+      var xExtent = d3.extent(data, d => d.date)
+      var xScale = d3.scaleTime()
+        .domain(xExtent)
+        .range([margin.left, width - margin.right]);
+      var yExtent = d3.extent(data, d => d[city]);
       var yScale = d3.scaleLinear()
-        .domain(extent)
-        .range([height, 0]);
+        .domain(yExtent)
+        .range([height - margin.bottom, margin.top]);
+      var heightScale = d3.scaleLinear()
+        .domain(yExtent)
+        .range([0, height - margin.top - margin.bottom]);
 
-      // try passing in tick values
-      var yAxis = d3.axisLeft()
-        .scale(yScale);
+      // create the rectangles
+      var svg = d3.select('svg');
 
-      var axis = d3.select('svg').append('g')
-        .attr('transform', 'translate(40, 20)')
-        .call(yAxis);
+      var rect = svg.selectAll('rect')
+        .data(data)
+        .enter().append('rect')
+        .attr('width', 5)
+        .attr('height', function(d) {
+          return heightScale(d[city]);
+        })
+        .attr('x', function(d) {return xScale(d.date)})
+        .attr('y', function(d) { return yScale(d[city])})
 
-      console.log(axis.node());
-      var text = axis.selectAll('text')
-        .attr('fill', function(d) {return d === 66 ? 'red' : 'blue'})
-      console.log(text.nodes());
+
+
+      // // get min/max
+      // var min = d3.min(data, d => d[city]);
+      // var max = d3.max(data, d => d[city]);
+      // console.log(min, max);
+      // // or use extent, which gives back [min, max]
+      // var extent = d3.extent(data, d => d[city]);
+      // console.log(extent);
+
+      // // try different scales, change the ranges, see what happens
+      // var yScale = d3.scaleLinear()
+      //   .domain(extent)
+      //   .range([height, 0]);
+
+      // // try passing in tick values
+      // var yAxis = d3.axisLeft()
+      //   .scale(yScale);
+
+      // var axis = d3.select('svg').append('g')
+      //   .attr('transform', 'translate(40, 20)')
+      //   .call(yAxis);
+
+      // console.log(axis.node());
+      // var text = axis.selectAll('text')
+      //   .attr('fill', function(d) {return d === 66 ? 'red' : 'blue'})
+      // console.log(text.nodes());
     })
   </script>
 </body>
