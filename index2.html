@@ -47,7 +47,7 @@
       var rect = svg.selectAll('rect')
         .data(data)
         .enter().append('rect')
-        .attr('width', 5)
+        .attr('width', 2)
         .attr('height', function(d) {
           return heightScale(d[city]);
         })
