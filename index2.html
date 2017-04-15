@@ -56,6 +56,14 @@
         .attr('fill', 'blue')
         .attr('stroke', 'white');
 
+      var xAxis = d3.axisBottom()
+        .scale(xScale);
+      var yAxis = d3.axisLeft()
+        .scale(yScale);
+
+      svg.append('g')
+        .call(xAxis)
+
 
 
       // // get min/max
