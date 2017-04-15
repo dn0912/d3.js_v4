@@ -64,7 +64,9 @@
       svg.append('g')
         .attr('transform', 'translate(' + [0, height - margin.bottom] + ')')
         .call(xAxis)
-
+      svg.append('g')
+      .attr('transform', 'translate(' + [margin.left, 0] + ')')
+      .call(yAxis);
 
 
       // // get min/max
