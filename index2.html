@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>Scale and Axis</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <svg></svg>
+  <script>
+    var city = 'San Francisco';
+    var width = 900;
+    var height = 300;
+
+    // dataset of city temperatures across time
+    d3.tsv('data.tsv', (err, data) => {
+      // clean the data
+      data.forEach(d => {
+        d.date = new Date(d.date); // x
+        ++d[city]; // y
+        console.log(d.date);
+      });
+
+      // get min/max
+      var min = d3.min(data, d => d[city]);
+      var max = d3.max(data, d => d[city]);
+      console.log(min, max);
+      // or use extent, which gives back [min, max]
+      var extent = d3.extent(data, d => d[city]);
+      console.log(extent);
+
+      // try different scales, change the ranges, see what happens
+      var yScale = d3.scaleLinear()
+        .domain(extent)
+        .range([height, 0]);
+
+      // try passing in tick values
+      var yAxis = d3.axisLeft()
+        .scale(yScale);
+
+      var axis = d3.select('svg').append('g')
+        .attr('transform', 'translate(40, 20)')
+        .call(yAxis);
+
+      console.log(axis.node());
+      var text = axis.selectAll('text')
+        .attr('fill', function(d) {return d === 66 ? 'red' : 'blue'})
+      console.log(text.nodes());
+    })
+  </script>
+</body>
