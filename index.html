@@ -12,20 +12,16 @@
 </head>
 
 <body>
-  <svg>
-    <rect />
-    <rect />
-    <rect />
-    <rect />
-    <rect />
-  </svg>
+  <svg></svg>
   <script>
   var rectWidth = 100;
   var height = 300;
   var data = [100, 250, 175, 200, 120];
 
-  var rect = d3.selectAll('rect')
+  var svg = d3.select('svg')
+  svg.selectAll('rect')
     .data(data)
+    .enter().append('rect')
     .attr('x', (d, i) => i * rectWidth)
     .attr('y', d => height - d)
     .attr('width', rectWidth)
