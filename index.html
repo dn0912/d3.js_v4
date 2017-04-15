@@ -19,15 +19,18 @@
   var data = [100, 250, 175, 200, 120];
 
   var svg = d3.select('svg')
-  svg.selectAll('rect')
+  var enter = svg.selectAll('rect')
     .data(data)
     .enter().append('rect')
     .attr('x', (d, i) => i * rectWidth)
     .attr('y', d => height - d)
     .attr('width', rectWidth)
     .attr('height', d => d)
-    .attr('fill', 'blue')
+    .attr('fill', function(d) {
+      if (d===250)return 'red';
+      return 'blue';
+    })
     .attr('stroke', '#fff');
-
+    console.log(enter)
   </script>
 </body>
