@@ -58,6 +58,9 @@
 
       var xAxis = d3.axisBottom()
         .scale(xScale);
+        // .ticks(5); //how many ticks on the xaxis
+        // .tickFormat((d) => d3.timeFormat('%b %Y')(d)); //special timeformat for the ticks or
+        // .tickFormat(d3.timeFormat('%b %Y'));
       var yAxis = d3.axisLeft()
         .scale(yScale);
 
