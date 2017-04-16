@@ -37,24 +37,16 @@
       var yScale = d3.scaleLinear()
         .domain([0, yMax])
         .range([height - margin.bottom, margin.top]);
-      var heightScale = d3.scaleLinear()
-        .domain([0,yMax])
-        .range([0, height - margin.top - margin.bottom]);
 
-      // create the rectangles
+      // create the line
+      var line = d3.line()
+        .x(function(d) {return xScale(d.date)})
+        .y(function(d) {return yScale(d[city])});
       var svg = d3.select('svg');
-
-      var rect = svg.selectAll('rect')
-        .data(data)
-        .enter().append('rect')
-        .attr('width', 2)
-        .attr('height', function(d) {
-          return heightScale(d[city]);
-        })
-        .attr('x', function(d) {return xScale(d.date)})
-        .attr('y', function(d) { return yScale(d[city])})
-        .attr('fill', 'blue')
-        .attr('stroke', 'white');
+      svg.append('path')
+        .attr('d', line(data))
+        .attr('fill', 'none')
+        .attr('stroke', 'blue');
 
       var xAxis = d3.axisBottom()
         .scale(xScale);
