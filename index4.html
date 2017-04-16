@@ -22,6 +22,7 @@
     // dataset of city temperatures across time
     d3.tsv('data.tsv', (err, data) => {
       // clean the data
+      data = data.slice(0,50);
       data.forEach(d => {
         d.date = d3.timeParse("%Y%m%d")(d.date); // x
         d.date = new Date(d.date);
@@ -41,7 +42,8 @@
       // create the line
       var line = d3.line()
         .x(function(d) {return xScale(d.date)})
-        .y(function(d) {return yScale(d[city])});
+        .y(function(d) {return yScale(d[city])})
+        .curve(d3.curveStep);
       var svg = d3.select('svg');
       svg.append('path')
         .attr('d', line(data))
