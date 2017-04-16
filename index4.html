@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>Exercise 2</title>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <svg></svg>
+  <script>
+    var city = 'San Francisco';
+    var width = 900;
+    var height = 300;
+    var margin = {top: 20, bottom:20, left: 20, right: 20 };
+
+    // dataset of city temperatures across time
+    d3.tsv('data.tsv', (err, data) => {
+      // clean the data
+      data.forEach(d => {
+        d.date = d3.timeParse("%Y%m%d")(d.date); // x
+        d.date = new Date(d.date);
+        ++d[city]; // y // ++ is formating string to float
+      });
+
+      // scales
+      var xExtent = d3.extent(data, d => d.date)
+      var xScale = d3.scaleTime()
+        .domain(xExtent)
+        .range([margin.left, width - margin.right]);
+      var yMax = d3.max(data, d => d[city]); // range from 0 to max
+      var yScale = d3.scaleLinear()
+        .domain([0, yMax])
+        .range([height - margin.bottom, margin.top]);
+      var heightScale = d3.scaleLinear()
+        .domain([0,yMax])
+        .range([0, height - margin.top - margin.bottom]);
+
+      // create the rectangles
+      var svg = d3.select('svg');
+
+      var rect = svg.selectAll('rect')
+        .data(data)
+        .enter().append('rect')
+        .attr('width', 2)
+        .attr('height', function(d) {
+          return heightScale(d[city]);
+        })
+        .attr('x', function(d) {return xScale(d.date)})
+        .attr('y', function(d) { return yScale(d[city])})
+        .attr('fill', 'blue')
+        .attr('stroke', 'white');
+
+      var xAxis = d3.axisBottom()
+        .scale(xScale);
+      var yAxis = d3.axisLeft()
+        .scale(yScale);
+
+      svg.append('g')
+        .attr('transform', 'translate(' + [0, height - margin.bottom] + ')')
+        .call(xAxis)
+      svg.append('g')
+      .attr('transform', 'translate(' + [margin.left, 0] + ')')
+      .call(yAxis);
+    })
+  </script>
+</body>

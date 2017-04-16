@@ -31,7 +31,7 @@
     .attr('transform', 'translate(200,200)');
   svg.selectAll('path')
     .data(pies).enter().append('path')
-    .attr('d', function(d) {return arc(d)})
+    .attr('d', function(d) {console.log(d, arc(d)); return arc(d);})
     .attr('fill', (d, i) => colors(d.value))
     .attr('stroke', '#fff');
 
