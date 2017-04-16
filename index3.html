@@ -14,7 +14,9 @@
 <body>
 <svg></svg>
 <script>
-  var colors = d3.scaleOrdinal(d3.schemeCategory10);
+  // var colors = d3.scaleOrdinal(d3.schemeCategory10);
+  var colors = d3.scaleOrdinal()
+    .range(d3.schemeCategory10);
   var data = [1, 1, 2, 3, 5, 8, 13, 21];
   var pies = d3.pie()(data);
 
