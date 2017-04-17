@@ -14,10 +14,14 @@ http://sxywu.com/obamas/
 ANIMATION:
 https://greensock.com/get-started-js
 
+FORCES:
+https://medium.com/@sxywu/understanding-the-force-ef1237017d5
+
 Worth read:
 https://github.com/d3/d3-selection
 
 http://sxywu.com/d3intro/
+http://sxywu.com/travel/
 
 To run the server on localhost:8888
 python -m SimpleHTTPServer 8888 &
