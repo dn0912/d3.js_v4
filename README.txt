@@ -19,6 +19,7 @@ https://medium.com/@sxywu/understanding-the-force-ef1237017d5
 
 D3 AND REACT:
 http://slides.com/shirleywu/deck#/
+https://medium.com/@sxywu/on-d3-react-and-a-little-bit-of-flux-88a226f328f3
 
 Worth read:
 https://github.com/d3/d3-selection
