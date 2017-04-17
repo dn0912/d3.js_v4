@@ -40,22 +40,25 @@
     
     var t = d3.transition().duration(1000);
     var circles = svg.selectAll('circle')
-      .data(data, function(d) {return d.key});
+      .data(data, d => d.key());
+
+    // enter
+    var enter = circles.enter().append('circle');
     
     // exit
-    circles.exit()
-      .transition(t)
-      .attr('r', 0)
-      .remove();
+    // circles.exit()
+    //   .transition(t)
+    //   .attr('r', 0)
+    //   .remove();
     
-    circles.enter().append('circle')
-      .attr('r', radius)
-      .attr('cy', d => yScale(d.yield))
-      .merge(circles)
-      .attr('fill', d => colorScale(d.gen))
-      .attr('cx', d => xScale(d.site))
-      .transition(t)
-      .attr('cy', d => yScale(d.yield));
+    // circles.enter().append('circle')
+    //   .attr('r', radius)
+    //   .attr('cy', d => yScale(d.yield))
+    //   .merge(circles)
+    //   .attr('fill', d => colorScale(d.gen))
+    //   .attr('cx', d => xScale(d.site))
+    //   .transition(t)
+    //   .attr('cy', d => yScale(d.yield));
   }
   
   d3.csv('barleyfull.csv', function(err, response) {
@@ -70,8 +73,10 @@
     // set domain on the scales
     var xDomain = response.map(function(d) {return d.site});
     xScale.domain(xDomain);
-    var yDomain = d3.extent(response, function(d) {return d.yield});
-    yScale.domain(yDomain);
+    // var yDomain = d3.extent(response, function(d) {return d.yield});
+    // yScale.domain(yDomain);
+    var yMax = d3.max(response, d => d.yield);
+    yScale.domain([0, yMax]);
     
     var startYear = 1927;
     var numYears = 9;
