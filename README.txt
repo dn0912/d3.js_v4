@@ -17,6 +17,9 @@ https://greensock.com/get-started-js
 FORCES:
 https://medium.com/@sxywu/understanding-the-force-ef1237017d5
 
+D3 AND REACT:
+http://slides.com/shirleywu/deck#/
+
 Worth read:
 https://github.com/d3/d3-selection
 
