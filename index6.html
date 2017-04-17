@@ -23,11 +23,11 @@
       [240, 250, 100]
     ];
     
-    var t = d3.transition().duration(1000);
     var colors = d3.scaleOrdinal(d3.schemeCategory10);
     var svg = d3.select('svg');
     
     function updateBars(data) {
+      var t = d3.transition().duration(1000);
       var bars = svg.selectAll('rect')
         .data(data, d => d);
 

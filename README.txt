@@ -17,6 +17,7 @@ https://greensock.com/get-started-js
 Worth read:
 https://github.com/d3/d3-selection
 
+http://sxywu.com/d3intro/
 
 To run the server on localhost:8888
 python -m SimpleHTTPServer 8888 &
