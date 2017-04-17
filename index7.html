@@ -42,9 +42,17 @@
     var circles = svg.selectAll('circle')
       .data(data, d => d.key());
 
+    // exit
+    circles.exit().remove();
+
     // enter
-    var enter = circles.enter().append('circle');
-    
+    var enter = circles.enter().append('circle')
+      .attr('r', radius);
+    circles = enter.merge(circles)
+      .attr('cx', d => xScale(d.site)
+      .attr('cy', d => yScale(d.yield))
+      .attr('fill', d => colorScale(d.gen));
+
     // exit
     // circles.exit()
     //   .transition(t)
